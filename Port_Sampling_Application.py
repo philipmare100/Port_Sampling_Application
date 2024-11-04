@@ -29,7 +29,10 @@ if uploaded_file is not None:
         # Check if required columns are present
         if bag_id_column and kico_seal_column:
             # Extract components from the Bag ID column and create new columns
+            # Extract components from the Bag ID column and create new columns
             def extract_bag_info(bag_id):
+                # Convert bag_id to string to ensure .split() can be used
+                bag_id = str(bag_id)
                 parts = dict(item.split('=') for item in bag_id.split(',') if '=' in item)
                 parts.update({item.split(': ')[0]: item.split(': ')[1] for item in bag_id.split(',') if ': ' in item})
                 return parts
