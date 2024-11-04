@@ -110,6 +110,12 @@ if uploaded_file is not None:
                 else:
                     mapped_df_for_download[new_col] = None  # Add empty column if missing
 
+
+            # Add "+02:00" to all time columns in mapped_df_for_download
+                for col in ["BAG_AHK_LP_SAMPLING_TS"]:  # Specify all columns with time information
+                    if col in mapped_df_for_download.columns:
+                            mapped_df_for_download[col] = mapped_df_for_download[col].astype(str) + "+02:00"
+
             # Display the mapped DataFrame view and total entries count for reference
             st.write(f"Total Mapped DataFrame Entries for Download: {len(mapped_df_for_download)}")
             st.write("Mapped DataFrame for Download:")
