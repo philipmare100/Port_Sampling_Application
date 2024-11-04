@@ -121,15 +121,20 @@ if uploaded_file is not None:
             st.write("Mapped DataFrame for Download:")
             st.dataframe(mapped_df_for_download)
 
-            # Provide a download button for the mapped DataFrame
-            csv = mapped_df_for_download.to_csv(index=False)
+            # Define the filename based on start and end date-time selections
+            file_name = f"From_{start_date.strftime('%Y%m%d')}_{start_time.strftime('%H%M')}_to_{end_date.strftime('%Y%m%d')}_{end_time.strftime('%H%M')}_Dispatched.csv"
+
+            # Convert filtered data to CSV for download
+            csv_data = mapped_df_for_download.to_csv(index=False)
             st.download_button(
-                label="Download Mapped Data as CSV",
-                data=csv,
-                file_name="mapped_combined_df_for_download.csv",
+                label="Download Filtered Combined Data as CSV",
+                data=csv_data,
+                file_name=file_name,
                 mime="text/csv"
             )
 
+        else:
+            st.error("The file does not contain the required column: 'BAG ID.'")
     except Exception as e:
         st.error(f"Error processing file: {e}")
 else:
