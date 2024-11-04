@@ -122,7 +122,7 @@ if uploaded_file is not None:
             st.dataframe(mapped_df_for_download)
 
             # Define the filename based on start and end date-time selections
-            file_name = f"From_{start_date.strftime('%Y%m%d')}_{start_time.strftime('%H%M')}_to_{end_date.strftime('%Y%m%d')}_{end_time.strftime('%H%M')}_Dispatched.csv"
+            file_name = f"From_{start_date.strftime('%Y%m%d')}_{start_time.strftime('%H%M')}_to_{end_date.strftime('%Y%m%d')}_{end_time.strftime('%H%M')}_Sampling_Recieval.csv"
 
             # Convert filtered data to CSV for download
             csv_data = mapped_df_for_download.to_csv(index=False)
