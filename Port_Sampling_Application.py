@@ -35,9 +35,19 @@ if uploaded_file is not None:
             # Extract components from the Bag ID column and create new columns
             def extract_bag_info(bag_id):
                 bag_id = str(bag_id)
-                parts = dict(item.split('=') for item in bag_id.split(',') if '=' in item)
-                parts.update({item.split(': ')[0]: item.split(': ')[1] for item in bag_id.split(',') if ': ' in item})
+                parts = {}
+                for item in bag_id.split(','):
+                    if '=' in item:
+                        split_item = item.split('=', 1)  # Split only on the first '='
+                    elif ': ' in item:
+                        split_item = item.split(': ', 1)  # Split only on the first ': '
+                    else:
+                        continue
+
+                    if len(split_item) == 2:
+                        parts[split_item[0].strip()] = split_item[1].strip()
                 return parts
+
 
             # Apply extraction to create new columns from Bag ID details
             bag_info_df = df[bag_id_column].dropna().apply(extract_bag_info).apply(pd.Series)
